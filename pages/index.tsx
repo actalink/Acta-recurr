@@ -8,6 +8,9 @@ import {
   approveSwapToken,
   checkTokenAllowence,
   createPermit,
+  getSwapQuote,
+  getTokenList,
+  swapToken,
 } from '../services/tokenapproval'
 import { useAccount } from 'wagmi'
 import ConnectModal from '../components/ConnectModal'
@@ -32,11 +35,10 @@ function Home() {
     const uoHash = await createPermit(
       address,
       deadline,
-      BigNumber.from('100'),
+      BigNumber.from('10000000000'),
       provider,
       signer
     )
-    console.log(uoHash)
   }
 
   return (
@@ -73,10 +75,35 @@ function Home() {
         <br />
         <button
           onClick={(e) => {
-            approveSwapToken()
+            approveSwapToken(provider, signer)
           }}
         >
           Get calldata
+        </button>
+        <br />
+        <br />
+        <button
+          onClick={(e) => {
+            getSwapQuote()
+          }}
+        >
+          Get Quote
+        </button>
+        <button
+          onClick={(e) => {
+            getTokenList()
+          }}
+        >
+          Get Token list
+        </button>
+        <br />
+        <br />
+        <button
+          onClick={(e) => {
+            swapToken(provider, signer)
+          }}
+        >
+          swap token
         </button>
       </div>
     </div>
