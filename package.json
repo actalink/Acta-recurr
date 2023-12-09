@@ -2,6 +2,7 @@
   "name": "acta-scheduler",
   "private": true,
   "version": "0.1.0",
+  "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,6 +17,7 @@
     "@zerodevapp/contracts": "2.0.8",
     "@zerodevapp/sdk": "^3.1.37",
     "actasdk": "actalink/Acta-SDK#fix/integrate_dapp",
+    "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "ethereumjs-util": "^7.1.5",
     "ethers": "5.7.2",

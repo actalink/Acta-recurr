@@ -7,12 +7,11 @@ import {
 import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets"
 import type { AppProps } from "next/app"
 import { configureChains, createConfig, WagmiConfig } from "wagmi"
-import { hardhat, goerli, polygonMumbai, mainnet } from "wagmi/chains"
+import { hardhat, goerli, polygonMumbai, mainnet, polygon } from "wagmi/chains"
 import { publicProvider } from "wagmi/providers/public"
 import NoSsrWrapper from "./no-ssr-wrapper"
 import { store } from "../store/store"
 import { Provider } from "react-redux"
-import Layout from "../components/Layout"
 
 const goerliPrivate = {
   ...goerli,
@@ -35,8 +34,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     // goerli,
     goerliPrivate,
-    polygonMumbai,
-    hardhat,
+    polygon,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
   ],
   [publicProvider()]
@@ -64,9 +62,7 @@ function ActaDapp({ Component, pageProps }: AppProps) {
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains}>
           <NoSsrWrapper>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+          <Component {...pageProps} />
           </NoSsrWrapper>
         </RainbowKitProvider>
       </WagmiConfig>
