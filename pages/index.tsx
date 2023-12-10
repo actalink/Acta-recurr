@@ -10,102 +10,28 @@ import {
   createPermit,
   getSwapQuote,
   getTokenList,
-  swapToken,
 } from '../services/tokenapproval'
 import { useAccount } from 'wagmi'
 import ConnectModal from '../components/ConnectModal'
 import { sendNewTransaction } from '../services/wallet'
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Sidebar from './Frequentop'
+import Frequentop from './Frequentop'
+import Conditionedop from './Conditionedop'
 
 function Home() {
   const { isConnected } = useAccount()
   const { address } = useSmartAccount()
   const provider = useEthersProvider() as ethers.providers.JsonRpcProvider
   const signer = useEthersSigner() as ethers.providers.JsonRpcSigner
-  const checkApproval = async () => {
-    const allowenceAmount = await checkTokenAllowence(address, signer)
-    console.log(`allowence amount: ${allowenceAmount}`)
-  }
-
-  const [first, setfirst] = useState<string | undefined>('')
-
-  const createTokenPermit = async () => {
-    const deadline = Math.floor(Date.now() / 1000) + 4200
-    const uoHash = await createPermit(
-      address,
-      deadline,
-      BigNumber.from('10000000000'),
-      provider,
-      signer
-    )
-  }
 
   return (
-    <div>
-      {isConnected && (
-        <ConnectModal
-          isConnected={isConnected}
-          smartWallet={address}
-          key={'kkdkd'}
-        />
-      )}
-      {address !== '' && <p>{address}</p>}
+    <div className="relative h-screen w-screen px-10">
       <Navbar smartWallet={address} />
-      <div>
-        <button
-          onClick={(e) => {
-            if (address !== '') {
-              createTokenPermit()
-            }
-          }}
-        >
-          permit
-        </button>
-        <button
-          onClick={(e) => {
-            if (address !== '') {
-              checkApproval()
-            }
-          }}
-        >
-          check allownence
-        </button>
-        <br />
-        <br />
-        <button
-          onClick={(e) => {
-            approveSwapToken(provider, signer)
-          }}
-        >
-          Get calldata
-        </button>
-        <br />
-        <br />
-        <button
-          onClick={(e) => {
-            getSwapQuote()
-          }}
-        >
-          Get Quote
-        </button>
-        <button
-          onClick={(e) => {
-            getTokenList()
-          }}
-        >
-          Get Token list
-        </button>
-        <br />
-        <br />
-        <button
-          onClick={(e) => {
-            swapToken(provider, signer)
-          }}
-        >
-          swap token
-        </button>
-      </div>
+      {/* <Frequentop smartAccountAddress={address} /> */}
+      <Conditionedop smartAccountAddress={address} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { BsLink45Deg } from "react-icons/bs";
-import React from "react";
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { BsLink45Deg } from 'react-icons/bs'
+import React from 'react'
 
 const Connectbutton = () => {
   return (
@@ -16,20 +16,20 @@ const Connectbutton = () => {
       }) => {
         // Note: If your app doesn't use authentication, you
         // can remove all 'authenticationStatus' checks
-        const ready = mounted && authenticationStatus !== "loading";
+        const ready = mounted && authenticationStatus !== 'loading'
         const connected =
           ready &&
           account &&
           chain &&
-          (!authenticationStatus || authenticationStatus === "authenticated");
+          (!authenticationStatus || authenticationStatus === 'authenticated')
         return (
           <div
             {...(!ready && {
-              "aria-hidden": true,
+              'aria-hidden': true,
               style: {
                 opacity: 0,
-                pointerEvents: "none",
-                userSelect: "none",
+                pointerEvents: 'none',
+                userSelect: 'none',
               },
             })}
           >
@@ -39,29 +39,29 @@ const Connectbutton = () => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className="w-80 flex justify-center items-center bg-gradient-to-r from-acta-violet-3 to-acta-violet-4 py-1 px-4 font-semibold text-lg rounded-full text-white gap-2"
+                    className="w-80 flex justify-center items-center bg-gradient-to-r from-acta-violet-3 to-acta-violet-4 py-1 px-4 font-semibold text-lg rounded-full text-white gap-2 shadow-md"
                   >
                     <BsLink45Deg /> Connect Metamask
                   </button>
-                );
+                )
               }
               if (chain.unsupported) {
                 return (
                   <button
                     onClick={openChainModal}
                     type="button"
-                    className="bg-red-500 py-1 px-4 font-bold text-xl rounded-full text-white"
+                    className="bg-red-500 py-1 px-4 font-bold text-xl rounded-full text-white shadow-md"
                   >
                     Wrong network
                   </button>
-                );
+                )
               }
               return (
-                <div style={{ display: "flex", gap: 12 }}>
+                <div style={{ display: 'flex', gap: 12 }}>
                   <button
                     onClick={openChainModal}
-                    style={{ display: "flex", alignItems: "center" }}
-                    className="border order-solid border-violet-500 py-1 px-4 font-normal text-xl rounded-full text-violet-500"
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    className="border order-solid outline-none py-1 px-4 font-normal text-xl rounded-full text- shadow-lg"
                     type="button"
                   >
                     {chain.hasIcon && (
@@ -71,13 +71,13 @@ const Connectbutton = () => {
                           width: 25,
                           height: 25,
                           borderRadius: 999,
-                          overflow: "hidden",
+                          overflow: 'hidden',
                           marginRight: 4,
                         }}
                       >
                         {chain.iconUrl && (
                           <img
-                            alt={chain.name ?? "Chain icon"}
+                            alt={chain.name ?? 'Chain icon'}
                             src={chain.iconUrl}
                             style={{ width: 25, height: 25 }}
                           />
@@ -89,12 +89,12 @@ const Connectbutton = () => {
                   <button
                     onClick={openAccountModal}
                     type="button"
-                    className="border order-solid border-violet-500 py-1 px-4 font-normal text-xl rounded-full text-violet-500"
+                    className="border order-solid outline-none py-1 px-4 font-normal text-xl rounded-full text-violet-500 shadow-lg"
                   >
                     {account.displayName}
                     {account.displayBalance
                       ? ` (${account.displayBalance})`
-                      : ""}
+                      : ''}
                   </button>
                   {/* <button
                     onClick={console.log} // copy address to clipboard
@@ -120,13 +120,13 @@ const Connectbutton = () => {
                     <span>Processing...</span>
                   </button> */}
                 </div>
-              );
+              )
             })()}
           </div>
-        );
+        )
       }}
     </ConnectButton.Custom>
-  );
-};
+  )
+}
 
-export default Connectbutton;
+export default Connectbutton

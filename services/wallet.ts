@@ -163,6 +163,7 @@ export const createScheduledTransaction = async (
     return {
       userOpHash: userOp.hash,
       executionTime: userOp.executionTime,
+      userop: userOp.userOp,
     }
   })
 
@@ -171,19 +172,7 @@ export const createScheduledTransaction = async (
     .send(ops)
     .then(async (res) => {
       if (res.status === 200) {
-        const userOpsJSON = await printOp(
-          scheduledops.map((userOp) => userOp.userOp)
-        )
-        console.log(`userOp: ${userOpsJSON}`)
-        const client = await getHttpRpcClient(
-          provider,
-          bundlerURL,
-          entryPointAddress
-        )
-        merkleUserOpHashesFromBundler = await client.sendMerkleUserOpsToBundler(
-          scheduledops.map((uop) => uop.userOp)
-        )
-        console.log(`UserOpHash: ${merkleUserOpHashesFromBundler}`)
+        console.log('scheduled op sent successfully')
       }
     })
     .catch(() => {
